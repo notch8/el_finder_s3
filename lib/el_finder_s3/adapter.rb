@@ -1,5 +1,4 @@
 module ElFinderS3
-  require 'memcached'
   require 'cache'
 
   class Adapter
@@ -11,9 +10,7 @@ module ElFinderS3
       }
       @cached_responses = {}
       @s3_connector = ElFinderS3::S3Connector.new server
-      @cache_connector = cache_connector.nil? ? ElFinderS3::CacheConnector.new : @cache_connector = cache_connector
-      # client = Memcached.new('127.0.0.1:11211', :binary_protocol => true)
-      # @cache = Cache.wrap(client)
+      @cache_connector = cache_connector || ElFinderS3::CacheConnector.new
     end
 
     def close
