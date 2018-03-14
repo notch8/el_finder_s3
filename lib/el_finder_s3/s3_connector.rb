@@ -12,6 +12,8 @@ module ElFinderS3
           credentials: Aws::Credentials.new(server[:access_key_id], server[:secret_access_key])
         }
       )
+      Aws.config.update({ endpoint: server[:endpoint]}) if server[:endpoint]
+
       @bucket_name = server[:bucket_name]
       @s3_client = Aws::S3::Client.new
     end
