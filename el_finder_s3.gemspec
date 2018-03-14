@@ -27,6 +27,7 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.add_dependency('image_size', '>= 1.0.0')
   spec.add_dependency('aws-sdk', '~> 2')
   spec.add_dependency('mini_magick', '~> 4.2')
   spec.add_dependency('cache', '~> 0.4')
