@@ -9,6 +9,7 @@ module ElFinderS3
       Aws.config.update(
         {
           region: server[:region],
+          force_path_style: true,
           credentials: Aws::Credentials.new(server[:access_key_id], server[:secret_access_key])
         }
       )
