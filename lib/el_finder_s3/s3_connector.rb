@@ -21,13 +21,8 @@ module ElFinderS3
 
     def ls_la(pathname)
       prefix = pathname.to_prefix_s
-      query = {
-        bucket: @bucket_name,
-        delimiter: '/',
-        encoding_type: 'url',
-        max_keys: 100,
-        prefix: prefix
-      }
+      #query = { bucket: @bucket_name, delimiter: '/', encoding_type: 'url', max_keys: 100, prefix: prefix }
+      query = { bucket: @bucket_name, delimiter: '/', encoding_type: nil, max_keys: 100, prefix: prefix }
 
       response = @s3_client.list_objects(query)
       result = {
