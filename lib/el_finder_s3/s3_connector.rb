@@ -92,6 +92,7 @@ module ElFinderS3
       response.body
     end
 
+    # TODO не определяется размер
     def size(pathname)
       query = {
         bucket: @bucket_name,

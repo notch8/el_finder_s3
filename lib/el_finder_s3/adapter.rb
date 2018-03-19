@@ -51,11 +51,8 @@ module ElFinderS3
 
     def path_type(pathname)
       @cache_connector.cached ElFinderS3::Operations::PATH_TYPE, pathname do
-        result = :directory
-        if pathname.to_s == '/'
-          result = :directory
-        end
-        result
+        # FIXME. Не самое лучшее решение
+        File.extname(pathname.to_s).empty? ? :directory : :file
       end
     end
 
@@ -105,7 +102,8 @@ module ElFinderS3
     end
 
     def delete(pathname)
-      if @s3_connector.delete(pathname.to_prefix_s)
+      path = pathname.file? ? pathname.to_file_prefix_s : pathname.to_prefix_s
+      if @s3_connector.delete(path)
         @cache_connector.clear_cache(pathname)
       else
         false

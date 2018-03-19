@@ -97,8 +97,6 @@ module ElFinderS3
     #
     def fullpath
       @fullpath ||= (@path.nil? ? @root : @root + @path)
-      b = @path.nil? ? @root : @root + @path
-      return @fullpath
     end
 
     # of fullpath
@@ -162,6 +160,12 @@ module ElFinderS3
         prefix_s = prefix_s + '/'
       end
       return prefix_s
+    end
+
+    def to_file_prefix_s
+      result = to_prefix_s
+      result[-1] = '' unless result[-1] != '/'
+      result
     end
 
     # of to_s
