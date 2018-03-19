@@ -118,10 +118,6 @@ module ElFinderS3
       @size = 0
     end
 
-    def rmdir
-      adapter.rmdir(self)
-    end
-
     def unlink
       adapter.delete(self)
     end

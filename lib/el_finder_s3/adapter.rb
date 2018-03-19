@@ -73,13 +73,12 @@ module ElFinderS3
       end
     end
 
-    #FIXME
     def rename(pathname, new_name)
-      # ftp_context do
-      #   ElFinderS3::Connector.logger.debug "  \e[1;32mFTP:\e[0m    Renaming #{pathname} to #{new_name}"
-      #   rename(pathname.to_s, new_name.to_s)
-      # end
-      # clear_cache(pathname)
+      if @s3_connector.rename(pathname.to_prefix_s, new_name.to_prefix_s)
+        @cache_connector.clear_cache(pathname)
+      else
+        false
+      end
     end
 
     ##
@@ -105,26 +104,12 @@ module ElFinderS3
       end
     end
 
-    def rmdir(pathname)
-      #FIXME
-      # ftp_context do
-      #   ElFinderS3::Connector.logger.debug "  \e[1;32mFTP:\e[0m    Removing directory #{pathname}"
-      #   rmdir(pathname.to_s)
-      # end
-      # clear_cache(pathname)
-    end
-
     def delete(pathname)
-      #FIXME
-      # ftp_context do
-      #   ElFinderS3::Connector.logger.debug "  \e[1;32mFTP:\e[0m    Deleting #{pathname}"
-      #   if pathname.directory?
-      #     rmdir(pathname.to_s)
-      #   else
-      #     delete(pathname.to_s)
-      #   end
-      # end
-      # clear_cache(pathname)
+      if @s3_connector.delete(pathname.to_prefix_s)
+        @cache_connector.clear_cache(pathname)
+      else
+        false
+      end
     end
 
     def retrieve(pathname)

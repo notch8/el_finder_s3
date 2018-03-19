@@ -104,5 +104,24 @@ module ElFinderS3
         0
       end
     end
+
+    def delete(path)
+      begin
+        @s3_client.delete_object(bucket: @bucket_name, key: path)
+        true
+      rescue
+        false
+      end
+    end
+
+    def rename(path_from, path_to)
+      begin
+        @s3_client.copy_object(bucket: @bucket_name, key: path_from, copy_source: path_to)
+        @s3_client.delete_object(bucket: @bucket_name, key: path_from)
+        true
+      rescue
+        false
+      end
+    end
   end
 end
