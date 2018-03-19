@@ -401,6 +401,7 @@ module ElFinderS3
           removed_list.concat remove_target(target)
         end
         @response[:removed] = removed_list unless removed_list.empty?
+        _open(@current)
       end
     end
 
