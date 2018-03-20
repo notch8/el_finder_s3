@@ -309,7 +309,7 @@ module ElFinderS3
       if to.exist?
         @response[:error] = "Unable to rename #{@target.ftype}. '#{to.basename}' already exists"
       else
-        to = @target.rename(to)
+        to = @target.fullpath.rename(to)
         if to
           @response[:added] = [cdc_for(to)]
           @response[:removed] = [to_hash(@target)]
