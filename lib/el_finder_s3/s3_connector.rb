@@ -116,9 +116,17 @@ module ElFinderS3
     end
 
     def rename(path_from, path_to)
+      return false if path_from.directory?
+
       begin
-        @s3_client.copy_object(bucket: @bucket_name, key: path_from, copy_source: path_to)
+        @s3_client.copy_object(
+          bucket: @bucket_name,
+          key: path_to,
+          copy_source: "#{@bucket_name}/#{path_from}",
+          acl: 'public-read'
+        )
         @s3_client.delete_object(bucket: @bucket_name, key: path_from)
+
         true
       rescue
         false

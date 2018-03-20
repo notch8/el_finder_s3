@@ -81,8 +81,9 @@ module ElFinderS3
       end
     end
 
+    # FIXME
     def rename_directory(pathname, new_pathname)
-      @s3_connector.rename(pathname.to_prefix_s, new_pathname.to_prefix_s)
+      false
     end
 
     def rename_file(pathname, new_pathname)
