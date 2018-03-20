@@ -159,6 +159,10 @@ module ElFinderS3
       false
     end
 
+    def path
+      self
+    end
+
     # These methods are part of the base class, but need to be handled specially
     # since they return new instances of this class
     # The code below unwraps the pathname, invokces the original method on it,

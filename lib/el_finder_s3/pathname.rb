@@ -230,11 +230,11 @@ module ElFinderS3
     # of duplicate
 
     #
-    def rename(to)
-      to = self.class.new(@adapter, to)
-      realpath.rename(to.fullpath.to_s)
-      to
-    end
+    #def rename(to)
+      #to = self.class.new(@adapter, to)
+      #realpath.rename(to.fullpath.to_s)
+      #to
+    #end
 
     # of rename
 
