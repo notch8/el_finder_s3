@@ -70,12 +70,23 @@ module ElFinderS3
       end
     end
 
-    def rename(pathname, new_name)
-      if @s3_connector.rename(pathname.to_prefix_s, new_name.to_prefix_s)
+    def rename(pathname, new_pathname)
+      rename_result = pathname.file? ? rename_file(pathname, new_pathname) : rename_directory(pathname, new_pathname)
+
+      if rename_result
         @cache_connector.clear_cache(pathname)
+        new_pathname
       else
         false
       end
+    end
+
+    def rename_directory(pathname, new_pathname)
+      @s3_connector.rename(pathname.to_prefix_s, new_pathname.to_prefix_s)
+    end
+
+    def rename_file(pathname, new_pathname)
+      @s3_connector.rename(pathname.to_file_prefix_s, new_pathname.to_file_prefix_s)
     end
 
     ##
@@ -83,14 +94,14 @@ module ElFinderS3
     # it first changes to the parent of the source pathname and uses a relative path for
     # the RNFR.  This seems to allow the (Microsoft) FTP server to rename a directory
     # into another directory (e.g. /subdir/target -> /target )
-    def move(pathname, new_name)
+    def move(pathname, new_pathname)
       #FIXME
       # ftp_context(pathname.dirname) do
-      #   ElFinderS3::Connector.logger.debug "  \e[1;32mFTP:\e[0m    Moving #{pathname} to #{new_name}"
-      #   rename(pathname.basename.to_s, new_name.to_s)
+      #   ElFinderS3::Connector.logger.debug "  \e[1;32mFTP:\e[0m    Moving #{pathname} to #{new_pathname}"
+      #   rename(pathname.basename.to_s, new_pathname.to_s)
       # end
       # clear_cache(pathname)
-      # clear_cache(new_name)
+      # clear_cache(new_pathname)
     end
 
     def mkdir(pathname)

@@ -138,7 +138,8 @@ module ElFinderS3
 
       decoded_hash = Base64.urlsafe_decode64(hash)
       decoded_hash = decoded_hash.respond_to?(:force_encoding) ? decoded_hash.force_encoding('utf-8') : decoded_hash
-      pathname = @root + decoded_hash
+
+      @root + decoded_hash
     rescue ArgumentError => e
       if e.message != 'invalid base64'
         raise
@@ -291,7 +292,7 @@ module ElFinderS3
         return
       end
 
-      to = @target.dirname + @params[:name]
+      to = @target.fullpath.dirname + @params[:name]
 
       perms_for_target = perms_for(@target)
       if perms_for_target[:locked] == true
@@ -312,6 +313,7 @@ module ElFinderS3
         if to
           @response[:added] = [cdc_for(to)]
           @response[:removed] = [to_hash(@target)]
+          _open(@current)
         else
           @response[:error] = "Unable to rename #{@target.ftype}"
         end
