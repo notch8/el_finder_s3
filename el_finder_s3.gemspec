@@ -5,19 +5,18 @@ require 'el_finder_s3/version'
 
 Gem::Specification.new do |spec|
   spec.name = 'el_finder_s3'
+  spec.license = ['MIT']
+
   spec.version = ElFinderS3::VERSION
-  spec.authors = ['Raúl Anatol']
-  spec.email = ['raul@natol.es']
+  spec.authors = ['Araslanov Evgeny', 'Raúl Anatol']
+  spec.email = ['evgeniy.araslanov@bia-tech.ru', 'raul@natol.es']
 
   spec.summary = %q{elFinder server side connector for Ruby, with an S3 aws service.}
   spec.description = %q{Ruby gem to provide server side connector to elFinder using AWS S3 like a container}
-  spec.homepage = 'https://github.com/raulanatol/el_finder_s3'
-  spec.license = 'MIT'
+  spec.homepage = 'https://gitlab.dellin.ru/web-bia/el_finder_s3'
 
-  # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
-  # delete this section to allow pushing this gem to any host.
   if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "https://rubygems.org"
+    spec.metadata['allowed_push_host'] = "http://rubygems.bia-tech.ru"
   else
     raise 'RubyGems 2.0 or newer is required to protect against public gem pushes.'
   end
