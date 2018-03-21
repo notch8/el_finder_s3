@@ -5,7 +5,7 @@ require 'el_finder_s3/version'
 
 Gem::Specification.new do |spec|
   spec.name = 'el_finder_s3'
-  spec.license = ['MIT']
+  spec.licenses = ['MIT']
 
   spec.version = ElFinderS3::VERSION
   spec.authors = ['Araslanov Evgeny', 'Raúl Anatol']
