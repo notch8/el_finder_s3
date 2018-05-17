@@ -62,11 +62,9 @@ module ElFinderS3
       end
     end
 
-    #FIXME
     def mtime(pathname)
       @cache_connector.cached ElFinderS3::Operations::MTIME, pathname do
-        #mtime(pathname.to_s)
-        0
+        @s3_connector.mtime(pathname)
       end
     end
 

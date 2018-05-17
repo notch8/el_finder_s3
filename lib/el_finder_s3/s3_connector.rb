@@ -106,6 +106,19 @@ module ElFinderS3
       end
     end
 
+    def mtime(pathname)
+      query = {
+        bucket: @bucket_name,
+        key: pathname.file? ? pathname.to_file_prefix_s : pathname.to_prefix_s
+      }
+      begin
+        head = @s3_client.head_object(query)
+        head[:last_modified]
+      rescue Aws::S3::Errors::NotFound
+        0
+      end
+    end
+
     def delete(path)
       begin
         @s3_client.delete_object(bucket: @bucket_name, key: path)
