@@ -180,7 +180,10 @@ module ElFinderS3
       end
 
       if target.file?
-        command_not_implemented
+        @response[:file_data] = @target.read
+        @response[:mime_type] = mime_handler.for(@target)
+        @response[:disposition] = 'attachment'
+        @response[:filename] = @target.basename.to_s
       elsif target.directory?
         @response[:cwd] = cwd_for(target)
         @response[:cdc] = target.children.
