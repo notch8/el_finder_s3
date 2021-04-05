@@ -96,7 +96,7 @@ module ElFinderS3
 
     #
     def fullpath
-      @fullpath ||= (@path.nil? ? @root : @path)
+      @fullpath ||= (@path.nil? ? @root : @root + @path)
     end
 
     # of fullpath
